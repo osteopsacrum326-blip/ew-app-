@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5b2a86">
+<title>E&amp;W - Este &amp; Oeste</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="config.js"></script>
+<style>
+:root{--p:#5b2a86;--y:#ffc107;--bg:#f6f2fa;--card:#fff;--tx:#1d1428;--mu:#6b5d7a;--bd:#e3d9ee}
+@media (prefers-color-scheme:dark){:root{--bg:#17101f;--card:#241a31;--tx:#f1eaf8;--mu:#b5a6c6;--bd:#3a2c4c}}
+*{box-sizing:border-box}html{background:var(--p)}
+body{margin:0;background:var(--p);color:var(--tx);font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom))}
+header{background:var(--p);color:#fff;display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:4px solid var(--y)}
+header img{height:46px}header b{color:var(--y);font-size:22px;line-height:1}header small{display:block;font-size:12px}
+#st{margin-left:auto;font-size:12px;background:rgba(255,255,255,.15);padding:4px 9px;border-radius:99px}
+#hero{background:var(--p);text-align:center;padding:6px 0 12px;color:#fff;border-bottom:4px solid var(--y)}#hero svg{width:min(62vw,240px)}#hero small{display:block;font-size:13px}
+main{padding:14px;max-width:640px;margin:0 auto;background:var(--bg);min-height:100vh;border-left:4px solid var(--y);border-right:4px solid var(--y)}
+section{display:none}section.on{display:block}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px}
+h2{font-size:18px;margin:4px 0 10px;color:var(--p)}@media (prefers-color-scheme:dark){h2{color:var(--y)}}
+label{display:block;font-size:13px;color:var(--mu);margin:8px 0 3px}
+input,select{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+button.b{width:100%;margin-top:12px;padding:13px;border:0;border-radius:12px;background:var(--y);color:#3b1a5a;font:700 16px inherit;cursor:pointer}
+button.s{padding:9px 12px;border:0;border-radius:9px;background:var(--p);color:#fff;font:inherit}
+.r{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.m{color:var(--mu);font-size:13px}
+.t{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--y);color:#3b1a5a;font-weight:600}.e{display:flex;gap:8px;margin-top:8px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--p);padding-bottom:env(safe-area-inset-bottom);border-top:3px solid var(--y);z-index:9}
+nav button{flex:1;padding:11px 4px;background:none;border:0;color:#d9c9ea;font:600 12px inherit}nav button span{display:block;font-size:20px}nav button.on{color:var(--y)}
+#toast{position:fixed;left:14px;right:14px;bottom:96px;background:#222;color:#fff;padding:12px;border-radius:12px;display:none;z-index:20;text-align:center}
+#sp,#lg{position:fixed;inset:0;z-index:50;background:var(--p);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;padding:24px;border-bottom:8px solid var(--y)}
+#sp{transition:opacity .5s}#sp svg{width:min(82vw,330px)}#sp b{font-size:44px;color:var(--y)}
+#lg{z-index:40;display:none;overflow:auto}#lg .c{width:100%;max-width:380px;color:var(--tx)}#lg a{color:var(--y)}
+</style></head><body>
+<div id="sp"><svg id="sl" viewBox="0 0 300 250"><defs><path id="arc" d="M 25 140 A 125 125 0 0 1 275 140"/></defs><text fill="#ffc107" font-size="25" font-weight="700" letter-spacing="2" text-anchor="middle" font-family="system-ui,sans-serif"><textPath href="#arc" startOffset="50%">MxCu Ventures S.A.</textPath></text><image href="logo.png" x="55" y="52" width="190" height="185" preserveAspectRatio="xMidYMid meet"/></svg><b>E&amp;W</b><span>Este &amp; Oeste · Nutrientes vegetales</span></div>
+<div id="lg"><b style="color:#ffc107;font-size:40px">E&amp;W</b>
+ <div class="c"><h2 id="lt">Iniciar sesión</h2>
+  <div id="rg" style="display:none"><label>Nombre de la empresa</label><input id="lc" autocomplete="organization"></div>
+  <label>Correo</label><input id="le" type="email" inputmode="email" autocomplete="email">
+  <label>Contraseña (mínimo 8 caracteres)</label><input id="lp" type="password" autocomplete="current-password">
+  <p class="m" id="lm" style="color:#c0392b"></p><button class="b" id="lb">Entrar</button>
+  <p class="m" style="text-align:center"><a href="#" id="ls" style="color:var(--p)">Crear cuenta nueva</a></p></div></div>
+<div id="ap" style="display:none">
+<header><img src="logo.png" alt="Logo E&W"><div><b>E&amp;W</b><small>Este &amp; Oeste · Nutrientes vegetales</small></div><span id="st">…</span></header>
+<div id="hero"><small>Este &amp; Oeste · Nutrientes vegetales</small></div>
+<main>
+<section id="s-orders" class="on">
+ <div class="c" id="ac2" style="display:none"><h2>🔔 Avisos</h2><div id="nl"></div></div>
+ <div class="c"><h2>Nuevo pedido</h2>
+  <label>Cliente</label><input id="oc"><label>Correo del cliente</label><input id="oe" type="email" inputmode="email">
+  <label>Producto</label><select id="op"></select><label>Toneladas</label><input id="oq" type="number" min="1" max="10000" value="20" inputmode="numeric">
+  <button class="b" id="ob">Crear pedido</button></div>
+ <p class="m" id="notice"></p><h2>Pedidos</h2><div id="ol"></div>
+</section>
+<section id="s-cat"><h2>Catálogo (USD por tonelada, referencia)</h2><div id="pl"></div><p class="m">Precios orientativos puesto en Cuba. Confirmar con la cotización del proveedor.</p>
+ <div class="c" id="cfg" style="display:none"><h2>Correo del proveedor (para avisos)</h2><input id="pe" type="email"><button class="b" id="pb">Guardar correo</button></div></section>
+<section id="s-ack"><div class="c"><h2>Acuse de recibo</h2>
+ <label>Empresa cubana</label><input id="ac"><label>Modelo de negocio</label><select id="am"><option>Mipyme privada</option><option>Cooperativa (CCS/CPA/UBPC)</option><option>Trabajador por cuenta propia</option><option>Otro</option></select>
+ <label>Correo electrónico</label><input id="ae" type="email" inputmode="email"><label>Producto</label><select id="apd"></select>
+ <label>Toneladas (mínimo 20)</label><input id="at" type="number" min="20" step="any" inputmode="decimal"><label>Representante legal</label><input id="ar">
+ <button class="b" id="ab">Generar y descargar acuse (PDF)</button></div>
+ <div id="al"></div></section>
+</main>
+<nav><button data-t="orders" class="on"><span>🧾</span>Pedidos</button><button data-t="cat"><span>🌱</span>Catálogo</button><button data-t="ack"><span>📄</span>Acuse</button><button id="out"><span>🚪</span>Salir</button></nav>
+</div><div id="toast"></div>
+<script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {initializeFirestore,persistentLocalCache,persistentMultipleTabManager,collection,doc,addDoc,setDoc,getDoc,getDocs,deleteDoc,updateDoc,onSnapshot,query,where} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+const $=s=>document.querySelector(s),esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const REF=[{name:'Urea Prilada',price:450,season:'Nov-Feb y Abr-Jun',demand:'Muy alta'},{name:'NPK 16-16-16',price:500,season:'Oct-Feb (campaña de frío)',demand:'Alta'},{name:'Sulfato de Amonio',price:310,season:'Mar-Jun (arroz, caña)',demand:'Media'},{name:'Cloruro de Potasio',price:375,season:'Nov-Feb y May-Jul',demand:'Media'}];
+const STATES=['Pendiente','En proceso'];
+const app=initializeApp(window.EW_CONFIG),auth=getAuth(app),db=initializeFirestore(app,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
+let me=null,admin=false,prof={},prods=[],orders=[],cfg={},subs=[],regBusy=false,fails=0,lock=0,logoURL=null;
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3500)}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+setTimeout(()=>{const s=$('#sp');s.style.opacity=0;setTimeout(()=>s.remove(),500)},1800);
+{const h=$('#sl').cloneNode(true);h.removeAttribute('id');h.querySelector('path').id='arc2';h.querySelector('textPath').setAttribute('href','#arc2');$('#hero').prepend(h)}
+function net(){$('#st').textContent=navigator.onLine?'● En línea':'○ Sin conexión'}addEventListener('online',net);addEventListener('offline',net);net();
+document.querySelectorAll('nav button[data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button[data-t]').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='s-'+b.dataset.t))});
+$('#out').onclick=()=>signOut(auth);
+// ---- acceso
+let reg=false;$('#ls').onclick=e=>{e.preventDefault();reg=!reg;$('#rg').style.display=reg?'block':'none';$('#lt').textContent=reg?'Crear cuenta':'Iniciar sesión';$('#lb').textContent=reg?'Registrarme':'Entrar';$('#ls').textContent=reg?'Ya tengo cuenta':'Crear cuenta nueva'};
+$('#lb').onclick=async()=>{
+ const em=$('#le').value.trim(),pw=$('#lp').value,co=$('#lc').value.trim(),m=$('#lm');m.textContent='';
+ if(Date.now()<lock)return m.textContent='Demasiados intentos. Espera 5 minutos.';
+ if(!/^\S+@\S+\.\S+$/.test(em)||pw.length<8)return m.textContent='Correo válido y contraseña de 8 o más caracteres.';
+ try{
+  if(reg){if(!co)return m.textContent='Escribe el nombre de la empresa.';regBusy=true;const r=await createUserWithEmailAndPassword(auth,em,pw);await setDoc(doc(db,'users',r.user.uid),{role:'client',company:co,email:em,at:Date.now()});regBusy=false;boot(r.user)}
+  else await signInWithEmailAndPassword(auth,em,pw);
+ }catch(e){regBusy=false;fails++;if(fails>=5){lock=Date.now()+300000;fails=0}m.textContent=reg?'No se pudo crear la cuenta (¿ya existe?).':'Correo o contraseña incorrectos.'}};
+onAuthStateChanged(auth,u=>{if(regBusy)return;u?boot(u):(subs.forEach(f=>f()),subs=[],me=null,$('#ap').style.display='none',$('#lg').style.display='flex')});
+async function boot(u){
+ subs.forEach(f=>f());subs=[];me=u;
+ const s=await getDoc(doc(db,'users',u.uid)).catch(()=>null);prof=s&&s.exists()?s.data():{};admin=prof.role==='admin';
+ $('#lg').style.display='none';$('#ap').style.display='block';
+ $('#oc').value=prof.company||'';$('#oe').value=u.email||'';$('#ac').value=prof.company||'';$('#ae').value=u.email||'';
+ $('#ac2').style.display=admin?'block':'none';$('#cfg').style.display=admin?'block':'none';
+ subs.push(onSnapshot(collection(db,'products'),s=>{prods=s.docs.map(d=>({id:d.id,...d.data()}));drawProds()}));
+ subs.push(onSnapshot(admin?collection(db,'orders'):query(collection(db,'orders'),where('uid','==',u.uid)),s=>{orders=s.docs.map(d=>({id:d.id,pend:d.metadata.hasPendingWrites,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));drawOrders()}));
+ subs.push(onSnapshot(doc(db,'config','main'),s=>{cfg=s.exists()?s.data():{};if(document.activeElement!==$('#pe'))$('#pe').value=cfg.prov||''}));
+ if(admin){let first=true;
+  subs.push(onSnapshot(collection(db,'notifications'),s=>{
+   const L=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));
+   if(!first)s.docChanges().forEach(c=>{if(c.type==='added'&&!c.doc.metadata.hasPendingWrites){toast('🔔 '+c.doc.data().text);try{if(Notification.permission==='granted')new Notification('E&W',{body:c.doc.data().text})}catch(x){}}});first=false;
+   $('#nl').innerHTML=L.length?L.map(n=>`<div class="m" style="margin-bottom:10px">${esc(n.text)}<br><a href="${esc(mail(n))}" target="_blank" rel="noopener" data-n="${n.id}">✉️ Enviar aviso por correo</a></div>`).join(''):'<p class="m">Sin avisos.</p>'}));
+  subs.push(onSnapshot(collection(db,'acuses'),s=>{$('#al').innerHTML='<h2>Acuses recibidos</h2>'+(s.docs.length?s.docs.map(d=>{const a=d.data();return `<div class="c"><b>${esc(a.company)}</b><div class="m">${esc(a.model)} · ${esc(a.product)} · ${esc(a.tons)} t<br>${esc(a.email)} · ${esc(a.rep)}</div><button class="s" data-da="${d.id}" style="margin-top:8px;background:#a33">🗑 Eliminar</button></div>`}).join(''):'<p class="m">Sin acuses.</p>')}))}
+ fillSel();
+}
+function mail(n){return 'mailto:'+[n.email,n.prov].filter(Boolean).join(',')+'?subject='+encodeURIComponent('E&W - Compra confirmada')+'&body='+encodeURIComponent(n.text+'\n\nGracias por su compra. E&W (Este & Oeste) - MxCu Ventures S.A.')}
+function fillSel(){const a=$('#op'),v=a.value;a.innerHTML=prods.map(p=>`<option>${esc(p.name)}</option>`).join('');if(v)a.value=v;const b=$('#apd'),w=b.value;b.innerHTML=REF.map(r=>`<option>${esc(r.name)}</option>`).join('');if(w)b.value=w}
+function drawProds(){fillSel();const L=$('#pl');if(!prods.length){L.innerHTML=admin?'<button class="b" id="seed">Cargar catálogo de referencia</button>':'<p class="m">Catálogo vacío.</p>';return}
+ L.innerHTML=prods.map(p=>`<div class="c"><div class="r"><b>${esc(p.name)}</b><span class="t">$${esc(p.price)} /t</span></div><div class="m">Temporada: ${esc(p.season||'-')} · Demanda: ${esc(p.demand||'-')}</div>${admin?`<div class="e"><input type="number" step="any" value="${esc(p.price)}" id="pr-${p.id}"><button class="s" data-save="${p.id}">Guardar</button></div>`:''}</div>`).join('')}
+function drawOrders(){const L=$('#ol');if(!orders.length){L.innerHTML='<p class="m">Sin pedidos.</p>';return}
+ L.innerHTML=orders.map(o=>`<div class="c"><div class="r"><b>${esc(o.client)}</b><span>${o.pend?'⏳':'☁️✓'}</span></div><div class="m">${esc(o.product)} × ${esc(o.qty)} t · Total $${esc(o.total)}</div>${admin?`<select data-st="${o.id}">${STATES.map(s=>`<option${s===o.status?' selected':''}>${s}</option>`).join('')}</select>`:`<span class="t">${esc(o.status)}</span>`}<div class="e"><button class="s" data-ok="${o.id}">✅ Confirmar compra</button>${admin?`<button class="s" data-del="${o.id}" style="background:#a33">🗑 Eliminar</button>`:''}</div></div>`).join('')}
+// ---- acciones
+$('#pl').onclick=e=>{if(e.target.id==='seed'){REF.forEach(r=>addDoc(collection(db,'products'),r).catch(()=>toast('Sin permiso')));return}
+ const id=e.target.dataset.save;if(!id)return;const v=parseFloat($('#pr-'+id).value);if(!(v>0))return toast('Precio no válido');updateDoc(doc(db,'products',id),{price:v}).then(()=>toast('Precio actualizado')).catch(()=>toast('Sin permiso'))};
+$('#pb').onclick=()=>{const v=$('#pe').value.trim();if(v&&!/^\S+@\S+\.\S+$/.test(v))return toast('Correo no válido');setDoc(doc(db,'config','main'),{prov:v}).then(()=>toast('Correo guardado')).catch(()=>toast('Sin permiso'))};
+$('#ob').onclick=()=>{const c=$('#oc').value.trim(),em=$('#oe').value.trim(),n=$('#op').value,q=parseInt($('#oq').value,10),p=prods.find(x=>x.name===n);
+ if(!c||!p||!(q>=1&&q<=10000)||!/^\S+@\S+\.\S+$/.test(em))return toast('Completa cliente, correo válido, producto y toneladas');
+ addDoc(collection(db,'orders'),{uid:me.uid,client:c,email:em,product:n,qty:q,total:p.price*q,status:'Pendiente',at:Date.now()}).catch(()=>toast('No se pudo guardar'));toast(navigator.onLine?'Pedido creado':'Pedido guardado; se enviará al volver el internet')};
+$('#ol').onchange=e=>{const id=e.target.dataset.st;if(id)updateDoc(doc(db,'orders',id),{status:e.target.value}).catch(()=>toast('Sin permiso'))};
+$('#ol').onclick=e=>{const d=e.target.dataset.del;if(d){deleteDoc(doc(db,'orders',d)).catch(()=>toast('Sin permiso'));return}
+ const id=e.target.dataset.ok;if(!id)return;const o=orders.find(x=>x.id===id);if(!o)return;
+ const n={by:me.uid,client:o.client,email:o.email||'',prov:cfg.prov||'',text:`Compra confirmada: ${o.client} - ${o.product} x ${o.qty} t (total $${o.total} USD)`,at:Date.now()};
+ addDoc(collection(db,'notifications'),n).catch(()=>{});try{window.open(mail(n),'_blank')}catch(x){}
+ deleteDoc(doc(db,'orders',id)).catch(()=>{});getDocs(query(collection(db,'acuses'),where('uid','==',o.uid))).then(s=>s.forEach(d=>deleteDoc(d.ref))).catch(()=>{});
+ $('#notice').textContent='✅ Compra confirmada. Su información fue eliminada de esta app.';toast('🔔 Compra confirmada. Información eliminada');
+ try{if(Notification.permission==='default')Notification.requestPermission()}catch(x){}};
+$('#nl').onclick=e=>{const n=e.target.dataset.n;if(n)setTimeout(()=>deleteDoc(doc(db,'notifications',n)).catch(()=>{}),1500)};
+$('#al').onclick=e=>{const d=e.target.dataset.da;if(d)deleteDoc(doc(db,'acuses',d)).catch(()=>toast('Sin permiso'))};
+async function logo(){if(logoURL)return logoURL;const b=await (await fetch('logo.png')).blob();return logoURL=await new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(b)})}
+$('#ab').onclick=async()=>{
+ const d={co:$('#ac').value.trim(),mo:$('#am').value,em:$('#ae').value.trim(),pr:$('#apd').value,t:parseFloat($('#at').value),rp:$('#ar').value.trim()};
+ if(!d.co||!d.rp||!/^\S+@\S+\.\S+$/.test(d.em))return toast('Completa todos los campos con un correo válido');
+ if(!(d.t>=20))return toast('El mínimo es 20 toneladas');
+ const n=new Date(),z=x=>String(x).padStart(2,'0'),date=`${z(n.getDate())}/${z(n.getMonth()+1)}/${n.getFullYear()}`,folio=`EW-${n.getFullYear()}${z(n.getMonth()+1)}${z(n.getDate())}-${z(n.getHours())}${z(n.getMinutes())}`;
+ addDoc(collection(db,'acuses'),{uid:me.uid,folio,company:d.co,model:d.mo,email:d.em,product:d.pr,tons:d.t,rep:d.rp,at:Date.now()}).catch(()=>{});
+ const LOGOT=await logo(),P=new jspdf.jsPDF({unit:'pt',format:'a4'});
+ P.setFillColor(91,42,134);P.rect(0,0,595,150,'F');P.addImage(LOGOT,'PNG',50,54,81,92);
+ {const t='MxCu Ventures S.A.',cx=90.5,cy=100,r=56,sp=1.2;P.setFont('helvetica','bold');P.setFontSize(10);P.setTextColor(255,193,7);const ws=[...t].map(c=>P.getTextWidth(c)+sp),W=ws.reduce((a,b)=>a+b,0);let a=Math.PI/2+W/r/2;
+  [...t].forEach((c,i)=>{const th=a-ws[i]/2/r,x=cx+r*Math.cos(th),yy=cy-r*Math.sin(th),ang=(th-Math.PI/2)*180/Math.PI,ph=ang*Math.PI/180,cw=ws[i]-sp;P.text(c,x-cw/2*Math.cos(ph),yy+cw/2*Math.sin(ph),{angle:ang});a-=ws[i]/r})}
+ P.setFont('helvetica','bold');P.setFontSize(32);P.setTextColor(255,193,7);P.text('E&W',170,88);
+ P.setFont('helvetica','normal');P.setFontSize(12);P.setTextColor(255,255,255);P.text('Este & Oeste - Nutrientes vegetales',170,110);
+ P.setFillColor(255,193,7);P.rect(0,150,595,6,'F');
+ P.setFont('helvetica','bold');P.setFontSize(17);P.setTextColor(91,42,134);P.text('ACUSE DE RECIBO DE INFORMACION',40,200);
+ P.setFont('helvetica','normal');P.setFontSize(11);P.setTextColor(90,90,90);P.text('Folio: '+folio,40,218);
+ const rows=[['Fecha',date],['Empresa cubana',d.co],['Modelo de negocio',d.mo],['Correo electronico',d.em],['Producto',d.pr],['Cantidad solicitada',d.t+' toneladas (minimo 20 t)'],['Representante legal',d.rp]];
+ let y=255;rows.forEach(([k,v])=>{P.setFont('helvetica','bold');P.setTextColor(91,42,134);P.text(k,40,y);P.setFont('helvetica','normal');P.setTextColor(30,30,30);P.text(P.splitTextToSize(String(v),330),210,y);P.setDrawColor(220,210,235);P.line(40,y+10,555,y+10);y+=32});
+ P.setFontSize(9.5);P.setTextColor(90,90,90);P.text(P.splitTextToSize('E&W acusa recibo de la informacion anterior, que sera utilizada unicamente para ofrecer un servicio personalizado. Este acuse no constituye un contrato ni una oferta en firme.',515),40,y+14);
+ P.setDrawColor(91,42,134);P.line(70,y+110,260,y+110);P.line(335,y+110,525,y+110);P.setFontSize(10);P.text('Representante legal',110,y+124);P.text('Recibido por E&W',380,y+124);
+ P.setFillColor(255,193,7);P.rect(0,805,595,4,'F');P.setFontSize(9);P.text('MxCu Ventures S.A. - Quintana Roo, Mexico',40,824);
+ P.save(`acuse_${folio}.pdf`);toast('Acuse listo')};
+</script></body></html>
