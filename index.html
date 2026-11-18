@@ -152,4 +152,4 @@ $('#ab').onclick=async()=>{
  P.setDrawColor(91,42,134);P.line(70,y+110,260,y+110);P.line(335,y+110,525,y+110);P.setFontSize(10);P.text('Representante legal',110,y+124);P.text('Recibido por E&W',380,y+124);
  P.setFillColor(255,193,7);P.rect(0,805,595,4,'F');P.setFontSize(9);P.text('MxCu Ventures S.A. - Quintana Roo, Mexico',40,824);
  P.save(`acuse_${folio}.pdf`);toast('Acuse listo')};
-</script></body></html>
+async function fx(){let e=$('#fx');if(!e){e=document.createElement('p');e.id='fx';e.className='m';$('#pl').after(e)}const k='ew_mxn',hoy=new Date().toLocaleDateString('es-MX');let r=null;try{const j=await (await fetch('https://open.er-api.com/v6/latest/USD')).json();if(j.rates&&j.rates.MXN){r=j.rates.MXN;localStorage.setItem(k,JSON.stringify({r,d:hoy}))}}catch(x){}if(r){e.textContent='💱 1 USD = '+r.toFixed(2)+' MXN · '+hoy}else{try{const c=JSON.parse(localStorage.getItem(k));if(c)e.textContent='💱 1 USD = '+c.r.toFixed(2)+' MXN · '+c.d+' (sin conexión)'}catch(x){}}}  fx();addEventListener('online',fx);  </script></body></html>
